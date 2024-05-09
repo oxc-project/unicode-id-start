@@ -25,6 +25,10 @@ Implementation of [Unicode Standard Annex #31][tr31] for determining which
 
 - Update to Unicode 15.0.0
 
+### 1.0.4
+
+- Update to Unicode 14.0.0
+
 <br>
 
 ## Comparison of performance
