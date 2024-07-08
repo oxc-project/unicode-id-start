@@ -17,6 +17,16 @@ Implementation of [Unicode Standard Annex #31][tr31] for determining which
 
 ## Changelog
 
+### 1.2.0
+
+- patch `・` U+30FB KATAKANA MIDDLE DOT and `･` U+FF65 HALFWIDTH KATAKANA MIDDLE DOT
+
+Unicode 4.1 through Unicode 15 omitted these two characters from ID_Continue by accident.
+However, this accident was corrected in Unicode 15.1.
+Any JS VM that supports ES6+ but that uses a version of Unicode earlier than 15.1 will consider these to be a syntax error,
+so we deliberately omit these characters from the set of identifiers that are valid in both ES5 and ES6+.
+For more info see 2.2 in https://www.unicode.org/L2/L2023/23160-utc176-properties-recs.pdf
+
 ### 1.1.2
 
 - Unicode 15.1.0
