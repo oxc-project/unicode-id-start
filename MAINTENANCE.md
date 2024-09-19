@@ -1,7 +1,7 @@
 
 To regenerate tables, run the following in the repo root (replace the unicode version):
 
-```
+```bash
 cargo binstall ucd-generate
 curl -LO https://www.unicode.org/Public/zipped/16.0.0/UCD.zip
 unzip UCD.zip -d UCD

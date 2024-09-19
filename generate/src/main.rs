@@ -1,13 +1,3 @@
-// To regenerate tables, run the following in the repo root:
-//
-// $ cargo install ucd-generate
-// $ curl -LO https://www.unicode.org/Public/zipped/15.1.0/UCD.zip
-// $ unzip UCD.zip -d UCD
-// $ ucd-generate property-bool UCD --include ID_Start,ID_Continue > tests/tables/tables.rs
-// $ ucd-generate property-bool UCD --include ID_Start,ID_Continue --fst-dir tests/fst
-// $ ucd-generate property-bool UCD --include ID_Start,ID_Continue --trie-set > tests/trie/trie.rs
-// $ cargo run --manifest-path generate/Cargo.toml
-
 #![allow(
     clippy::cast_lossless,
     clippy::cast_possible_truncation, // https://github.com/rust-lang/rust-clippy/issues/9613
