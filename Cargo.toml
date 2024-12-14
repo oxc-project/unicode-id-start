@@ -7,7 +7,7 @@ description = "Determine whether characters have the ID_Start or ID_Continue pro
 documentation = "https://docs.rs/unicode-id-start"
 edition = "2018"
 keywords = ["unicode", "id"]
-license = "(MIT OR Apache-2.0) AND Unicode-DFS-2016"
+license = "(MIT OR Apache-2.0) AND Unicode-3.0"
 repository = "https://github.com/Boshen/unicode-id-start"
 rust-version = "1.31"
 
