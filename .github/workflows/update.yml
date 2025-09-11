@@ -1,30 +1,36 @@
-name: Update Unicode 16.0.0
+name: Update Unicode
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        required: true
+        description: Unicode Version
 
-permissions:
-  contents: write
-
-env:
-  RUSTFLAGS: -Dwarnings
+permissions: {}
 
 jobs:
-  unicode-16:
-    name: Update to Unicode 16.0.0
+  unicode:
+    name: Update Unicode
     runs-on: ubuntu-latest
-    timeout-minutes: 45
     steps:
       - uses: taiki-e/checkout-action@v1
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: oxc-project/setup-rust@v1.0.0
       - uses: taiki-e/install-action@v2
         with:
           tool: ucd-generate
-      - run: curl -LO https://www.unicode.org/Public/zipped/16.0.0/UCD.zip
+      - run: curl -LO https://www.unicode.org/Public/zipped/latest/UCD.zip
       - run: unzip UCD.zip -d UCD
       - run: ucd-generate property-bool UCD --include ID_Start,ID_Continue > tests/tables/tables.rs
       - run: ucd-generate property-bool UCD --include ID_Start,ID_Continue --fst-dir tests/fst
       - run: ucd-generate property-bool UCD --include ID_Start,ID_Continue --trie-set > tests/trie/trie.rs
       - run: cargo run --manifest-path generate/Cargo.toml
       - run: rm -rf UCD UCD.zip
-      - run: git diff --stat
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.OXC_BOT_PAT }}
+          commit-message: Update Unicode
+          base: main
+          title: Update Unicode
+          assignees: Boshen
