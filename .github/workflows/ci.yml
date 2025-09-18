@@ -6,11 +6,7 @@ on:
   workflow_dispatch:
   schedule: [cron: "40 1 * * *"]
 
-permissions:
-  contents: read
-
-env:
-  RUSTFLAGS: -Dwarnings
+permissions: {}
 
 jobs:
   pre_ci:
