@@ -9,17 +9,14 @@ on:
 permissions: {}
 
 jobs:
-  pre_ci:
-    uses: dtolnay/.github/.github/workflows/pre_ci.yml@master
-
   unicode:
     name: latest Unicode
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'
     timeout-minutes: 45
     steps:
-      - uses: taiki-e/checkout-action@v1
-      - uses: oxc-project/setup-rust@@v1.0.0
+      - uses: taiki-e/checkout-action@b13d20b7cda4e2f325ef19895128f7ff735c0b3d # v1.3.1
+      - uses: oxc-project/setup-rust@d286d43bc1f606abbd98096666ff8be68c8d5f57 # v1.0.2
       - id: ucd-generate
         run: echo "version=$(grep 'ucd-generate [0-9]\+\.[0-9]\+\.[0-9]\+' tests/tables/tables.rs --only-matching)" >> $GITHUB_OUTPUT
       - run: cargo install ucd-generate
@@ -34,8 +31,6 @@ jobs:
 
   test:
     name: Rust ${{matrix.rust}}
-    needs: pre_ci
-    if: needs.pre_ci.outputs.continue
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -43,7 +38,7 @@ jobs:
         rust: [nightly, beta, stable]
     timeout-minutes: 15
     steps:
-      - uses: taiki-e/checkout-action@v1
+      - uses: taiki-e/checkout-action@b13d20b7cda4e2f325ef19895128f7ff735c0b3d # v1.3.1
       - run: rm rust-toolchain.toml
       - uses: dtolnay/rust-toolchain@master
         with:
@@ -56,13 +51,11 @@ jobs:
 
   msrv:
     name: Rust 1.31.0
-    needs: pre_ci
-    if: needs.pre_ci.outputs.continue
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: taiki-e/checkout-action@v1
-      - uses: oxc-project/setup-rust@@v1.0.0
+      - uses: taiki-e/checkout-action@b13d20b7cda4e2f325ef19895128f7ff735c0b3d # v1.3.1
+      - uses: oxc-project/setup-rust@d286d43bc1f606abbd98096666ff8be68c8d5f57 # v1.0.2
       - run: cargo check --manifest-path tests/crate/Cargo.toml
 
   clippy:
@@ -71,8 +64,8 @@ jobs:
     if: github.event_name != 'pull_request'
     timeout-minutes: 45
     steps:
-      - uses: taiki-e/checkout-action@v1
-      - uses: oxc-project/setup-rust@@v1.0.0
+      - uses: taiki-e/checkout-action@b13d20b7cda4e2f325ef19895128f7ff735c0b3d # v1.3.1
+      - uses: oxc-project/setup-rust@d286d43bc1f606abbd98096666ff8be68c8d5f57 # v1.0.2
         with:
           components: clippy
       - run: cargo clippy --tests --benches --workspace -- -Dclippy::all -Dclippy::pedantic
