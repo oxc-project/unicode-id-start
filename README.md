@@ -5,10 +5,11 @@
 Unicode ID_start
 =============
 
-[<img alt="github" src="https://img.shields.io/badge/github-dtolnay/unicode--ident-8da0cb?style=for-the-badge&labelColor=555555&logo=github" height="20">](https://github.com/dtolnay/unicode-ident)
-[<img alt="crates.io" src="https://img.shields.io/crates/v/unicode-ident.svg?style=for-the-badge&color=fc8d62&logo=rust" height="20">](https://crates.io/crates/unicode-ident)
-[<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-unicode--ident-66c2a5?style=for-the-badge&labelColor=555555&logo=docs.rs" height="20">](https://docs.rs/unicode-ident)
-[<img alt="build status" src="https://img.shields.io/github/actions/workflow/status/dtolnay/unicode-ident/ci.yml?branch=master&style=for-the-badge" height="20">](https://github.com/dtolnay/unicode-ident/actions?query=branch%3Amaster)
+[<img alt="github" src="https://img.shields.io/badge/github-oxc--project/unicode--id--start-8da0cb?style=for-the-badge&labelColor=555555&logo=github" height="20">](https://github.com/oxc-project/unicode-id-start)
+[<img alt="crates.io" src="https://img.shields.io/crates/v/unicode-id-start.svg?style=for-the-badge&color=fc8d62&logo=rust" height="20">](https://crates.io/crates/unicode-id-start)
+[<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-unicode--id--start-66c2a5?style=for-the-badge&labelColor=555555&logo=docs.rs" height="20">](https://docs.rs/unicode-id-start)
+[<img alt="build status" src="https://img.shields.io/github/actions/workflow/status/oxc-project/unicode-id-start/ci.yml?branch=main&style=for-the-badge" height="20">](https://github.com/oxc-project/unicode-id-start/actions?query=branch%3Amain)
+
 
 Implementation of [Unicode Standard Annex #31][tr31] for determining which
 `char` values are valid in programming language identifiers.

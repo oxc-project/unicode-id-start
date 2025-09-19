@@ -279,7 +279,7 @@ pub fn is_id_continue(ch: char) -> bool {
     is_id_continue_unicode(ch)
 }
 
-/// Check and unicode only for id_continue
+/// Check unicode only for id_continue
 #[inline]
 pub fn is_id_continue_unicode(ch: char) -> bool {
     let chunk = *TRIE_CONTINUE.0.get(ch as usize / 8 / CHUNK).unwrap_or(&0);
