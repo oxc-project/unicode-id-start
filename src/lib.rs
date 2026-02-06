@@ -251,13 +251,33 @@
 #[rustfmt::skip]
 mod tables;
 
-use crate::tables::{ASCII_CONTINUE, ASCII_START, CHUNK, LEAF, TRIE_CONTINUE, TRIE_START};
+use crate::tables::{CHUNK, LEAF, TRIE_CONTINUE, TRIE_START};
+
+// ASCII fast path — pure register arithmetic, zero data cache access.
+// Constants live in instruction stream (immediates / literal pool), not dcache.
+
+/// A-Z, a-z
+#[inline]
+fn is_ascii_id_start(b: u8) -> bool {
+    (b | 0x20).wrapping_sub(b'a') < 26
+}
+
+/// A-Z, a-z, 0-9, _
+#[inline]
+fn is_ascii_id_continue(b: u8) -> bool {
+    // u64 pair bitmap: chars 0-63 in LO, chars 64-127 in HI.
+    // Compiles to cmov + shift, no branches, no dcache loads.
+    const LO: u64 = 0x03FF_0000_0000_0000; // 0-9
+    const HI: u64 = 0x07FF_FFFE_87FF_FFFE; // A-Z _ a-z
+    let w = if b >= 64 { HI } else { LO };
+    (w >> (b & 63)) & 1 != 0
+}
 
 /// Check ascii and unicode for id_start
 #[inline]
 pub fn is_id_start(ch: char) -> bool {
     if ch.is_ascii() {
-        return ASCII_START.0[ch as usize];
+        return is_ascii_id_start(ch as u8);
     }
     is_id_start_unicode(ch)
 }
@@ -274,7 +294,7 @@ pub fn is_id_start_unicode(ch: char) -> bool {
 #[inline]
 pub fn is_id_continue(ch: char) -> bool {
     if ch.is_ascii() {
-        return ASCII_CONTINUE.0[ch as usize];
+        return is_ascii_id_continue(ch as u8);
     }
     is_id_continue_unicode(ch)
 }
