@@ -28,6 +28,7 @@ members = ["diagram", "generate"]
 
 [lib]
 doc-scrape-examples = false
+test = false
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
