@@ -14,7 +14,7 @@ rust-version = "1.31"
 [dev-dependencies]
 criterion = { version = "0.8", default-features = false }
 fst = "0.4"
-rand = { version = "0.10.0", features = ["small_rng"] }
+rand = { version = "0.8", features = ["small_rng"] }
 roaring = "0.11"
 ucd-trie = { version = "0.1", default-features = false }
 unicode-id = "0.3.6"
