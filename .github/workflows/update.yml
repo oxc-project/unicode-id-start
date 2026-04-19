@@ -15,9 +15,9 @@ jobs:
     name: Update Unicode
     runs-on: ubuntu-latest
     steps:
-      - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1
+      - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: oxc-project/setup-rust@23f38cfb0c04af97a055f76acee94d5be71c7c82 # v1.0.16
-      - uses: taiki-e/install-action@5939f3337e40968c39aa70f5ecb1417a92fb25a0 # v2.75.15
+      - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
         with:
           tool: ucd-generate
       - run: curl -LO https://www.unicode.org/Public/zipped/latest/UCD.zip
@@ -27,12 +27,12 @@ jobs:
       - run: ucd-generate property-bool UCD --include ID_Start,ID_Continue --trie-set > tests/trie/trie.rs
       - run: cargo run --manifest-path generate/Cargo.toml
       - run: rm -rf UCD UCD.zip
-      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
+      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
         id: app-token
         with:
           client-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-      - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+      - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           token: ${{ steps.app-token.outputs.token }}
           commit-message: Update Unicode
