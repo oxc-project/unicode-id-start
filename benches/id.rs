@@ -13,6 +13,8 @@
 // functions' time, then dividing by one million (ms -> ns).
 
 #![allow(
+    dead_code,
+    deprecated,
     clippy::incompatible_msrv, // https://github.com/rust-lang/rust-clippy/issues/12257
     clippy::needless_pass_by_value,
 )]
