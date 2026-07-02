@@ -4,4 +4,6 @@
 #[rustfmt::skip]
 mod trie;
 
+#[allow(unused_imports)]
+#[cfg(test)]
 pub(crate) use self::trie::*;
