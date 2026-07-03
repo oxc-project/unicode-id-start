@@ -17,6 +17,8 @@ pub fn output(
     index_start: &[u8],
     index_continue: &[u8],
     halfdense: &[u8],
+    id_start_high: &[(u32, u32)],
+    id_continue_high: &[(u32, u32)],
 ) -> Output {
     let mut out = Output::new();
     writeln!(out, "{}", HEAD);
@@ -55,6 +57,24 @@ pub fn output(
 
     writeln!(out, "pub(crate) const CHUNK: usize = {};", CHUNK);
     writeln!(out);
+
+    // Codepoints living above the end of each trie, kept as explicit ranges so the trie index
+    // does not have to span the large run of empty entries below them. See `split_high`.
+    for (name, ranges) in [
+        ("ID_START_HIGH", id_start_high),
+        ("ID_CONTINUE_HIGH", id_continue_high),
+    ] {
+        writeln!(
+            out,
+            "pub(crate) static {name}: [(u32, u32); {}] = [",
+            ranges.len(),
+        );
+        for (lo, hi) in ranges {
+            writeln!(out, "    (0x{:X}, 0x{:X}),", lo, hi);
+        }
+        writeln!(out, "];");
+        writeln!(out);
+    }
 
     writeln!(
         out,

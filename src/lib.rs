@@ -251,7 +251,10 @@
 #[rustfmt::skip]
 mod tables;
 
-use crate::tables::{ASCII_CONTINUE, ASCII_START, CHUNK, LEAF, TRIE_CONTINUE, TRIE_START};
+use crate::tables::{
+    ASCII_CONTINUE, ASCII_START, CHUNK, ID_CONTINUE_HIGH, ID_START_HIGH, LEAF, TRIE_CONTINUE,
+    TRIE_START,
+};
 
 /// Check ascii and unicode for id_start
 #[inline]
@@ -265,6 +268,11 @@ pub fn is_id_start(ch: char) -> bool {
 /// Check unicode only for id_start
 #[inline]
 pub fn is_id_start_unicode(ch: char) -> bool {
+    // Codepoints above the trie are matched against the (possibly empty) high ranges instead.
+    if ch as usize >= TRIE_START.0.len() * CHUNK * 8 {
+        let cp = ch as u32;
+        return ID_START_HIGH.iter().any(|&(lo, hi)| lo <= cp && cp <= hi);
+    }
     let chunk = *TRIE_START.0.get(ch as usize / 8 / CHUNK).unwrap_or(&0);
     let offset = chunk as usize * CHUNK / 2 + ch as usize / 8 % CHUNK;
     (unsafe { *LEAF.0.get_unchecked(offset) } >> (ch as u32 & 7)) & 1 != 0
@@ -282,6 +290,12 @@ pub fn is_id_continue(ch: char) -> bool {
 /// Check unicode only for id_continue
 #[inline]
 pub fn is_id_continue_unicode(ch: char) -> bool {
+    // Codepoints above the trie (e.g. the variation selectors U+E0100..=U+E01EF) are matched
+    // against the high ranges instead, so the trie need not span the empty gap below them.
+    if ch as usize >= TRIE_CONTINUE.0.len() * CHUNK * 8 {
+        let cp = ch as u32;
+        return ID_CONTINUE_HIGH.iter().any(|&(lo, hi)| lo <= cp && cp <= hi);
+    }
     let chunk = *TRIE_CONTINUE.0.get(ch as usize / 8 / CHUNK).unwrap_or(&0);
     let offset = chunk as usize * CHUNK / 2 + ch as usize / 8 % CHUNK;
     (unsafe { *LEAF.0.get_unchecked(offset) } >> (ch as u32 & 7)) & 1 != 0
