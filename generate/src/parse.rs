@@ -20,10 +20,7 @@ impl Properties {
 }
 
 pub fn parse_id_properties(ucd_dir: &Path) -> Properties {
-    let mut properties = Properties {
-        id_start: Set::new(),
-        id_continue: Set::new(),
-    };
+    let mut properties = Properties { id_start: Set::new(), id_continue: Set::new() };
 
     let filename = "DerivedCoreProperties.txt";
     let path = ucd_dir.join(filename);

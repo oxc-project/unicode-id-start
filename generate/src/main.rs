@@ -83,10 +83,7 @@ fn main() {
         let mut back = [0u8; CHUNK / 2];
         front.copy_from_slice(&chunk[..CHUNK / 2]);
         back.copy_from_slice(&chunk[CHUNK / 2..]);
-        halfchunkmap
-            .entry(front)
-            .or_insert_with(VecDeque::new)
-            .push_back(back);
+        halfchunkmap.entry(front).or_insert_with(VecDeque::new).push_back(back);
     }
 
     let mut halfdense = Vec::<u8>::new();
