@@ -1,6 +1,6 @@
+use crate::CHUNK;
 use crate::output::Output;
 use crate::parse::Properties;
-use crate::CHUNK;
 
 const HEAD: &str = "\
 const T: bool = true;
@@ -21,10 +21,7 @@ pub fn output(
     let mut out = Output::new();
     writeln!(out, "{}", HEAD);
 
-    writeln!(
-        out,
-        "pub(crate) static ASCII_START: Align64<[bool; 128]> = Align64([",
-    );
+    writeln!(out, "pub(crate) static ASCII_START: Align64<[bool; 128]> = Align64([");
     for i in 0u8..4 {
         write!(out, "   ");
         for j in 0..32 {
@@ -37,10 +34,7 @@ pub fn output(
     writeln!(out, "]);");
     writeln!(out);
 
-    writeln!(
-        out,
-        "pub(crate) static ASCII_CONTINUE: Align64<[bool; 128]> = Align64([",
-    );
+    writeln!(out, "pub(crate) static ASCII_CONTINUE: Align64<[bool; 128]> = Align64([");
     for i in 0u8..4 {
         write!(out, "   ");
         for j in 0..32 {
@@ -56,11 +50,7 @@ pub fn output(
     writeln!(out, "pub(crate) const CHUNK: usize = {};", CHUNK);
     writeln!(out);
 
-    writeln!(
-        out,
-        "pub(crate) static TRIE_START: Align8<[u8; {}]> = Align8([",
-        index_start.len(),
-    );
+    writeln!(out, "pub(crate) static TRIE_START: Align8<[u8; {}]> = Align8([", index_start.len());
     for line in index_start.chunks(16) {
         write!(out, "   ");
         for byte in line {
@@ -86,11 +76,7 @@ pub fn output(
     writeln!(out, "]);");
     writeln!(out);
 
-    writeln!(
-        out,
-        "pub(crate) static LEAF: Align64<[u8; {}]> = Align64([",
-        halfdense.len(),
-    );
+    writeln!(out, "pub(crate) static LEAF: Align64<[u8; {}]> = Align64([", halfdense.len());
     for line in halfdense.chunks(16) {
         write!(out, "   ");
         for byte in line {

@@ -26,10 +26,10 @@ mod roaring;
 #[path = "../tests/trie/mod.rs"]
 mod trie;
 
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use criterion::{Criterion, black_box, criterion_group, criterion_main};
+use rand::SeedableRng;
 use rand::distr::{Bernoulli, Distribution, Uniform};
 use rand::rngs::SmallRng;
-use rand::SeedableRng;
 use std::time::Duration;
 
 fn gen_string(p_nonascii: u32) -> String {
@@ -40,11 +40,7 @@ fn gen_string(p_nonascii: u32) -> String {
 
     let mut string = String::new();
     for _ in 0..500_000 {
-        let distribution = if pick_nonascii.sample(&mut rng) {
-            nonascii
-        } else {
-            ascii
-        };
+        let distribution = if pick_nonascii.sample(&mut rng) { nonascii } else { ascii };
         string.push(distribution.sample(&mut rng));
     }
 
