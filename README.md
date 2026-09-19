@@ -18,6 +18,10 @@ Implementation of [Unicode Standard Annex #31][tr31] for determining which
 
 ## Changelog
 
+### 1.5.0
+
+- Unicode 18.0.0
+
 ### 1.4.0
 
 - Unicode 17.0.0
