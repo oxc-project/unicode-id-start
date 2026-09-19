@@ -10,6 +10,7 @@ keywords = ["unicode", "id"]
 license = "(MIT OR Apache-2.0) AND Unicode-3.0"
 repository = "https://github.com/Boshen/unicode-id-start"
 rust-version = "1.31"
+include = ["src/**/*", "LICENSE-*", "README.md"]
 
 [dev-dependencies]
 criterion = { version = "0.8", default-features = false }
