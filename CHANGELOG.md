@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.1](https://github.com/oxc-project/unicode-id-start/compare/unicode-id-start-v1.5.0...unicode-id-start-v1.5.1) - 2026-09-27
+
+### Other
+
+- Update github actions ([#58](https://github.com/oxc-project/unicode-id-start/pull/58))
+- Update taiki-e/install-action action to v2.87.14 ([#57](https://github.com/oxc-project/unicode-id-start/pull/57))
+- release v1.5.0 ([#26](https://github.com/oxc-project/unicode-id-start/pull/26))
+- *(unicode-id-start)* exclude extraneous files from published package ([#47](https://github.com/oxc-project/unicode-id-start/pull/47))
+
 ## [1.5.0](https://github.com/oxc-project/unicode-id-start/compare/unicode-id-start-v1.4.0...unicode-id-start-v1.5.0) - 2026-09-19
 
 ### Fixed
