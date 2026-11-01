@@ -16,7 +16,7 @@ include = ["src/**/*", "LICENSE-*", "README.md"]
 criterion = { version = "0.8", default-features = false }
 fst = "0.4"
 rand = "0.10.0"
-roaring = "0.11"
+roaring = "0.12"
 ucd-trie = { version = "0.1", default-features = false }
 unicode-id = "0.3.7"
 
